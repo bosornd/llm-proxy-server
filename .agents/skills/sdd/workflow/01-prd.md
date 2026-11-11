@@ -1,6 +1,6 @@
 # Stage ① — PRD (`spec/PRD.md`)
 
-**Prerequisites:** Readiness Gate G1 failed, or new project with no approved PRD.
+**Prerequisites:** Readiness Gate G1 failed, or new project with no approved PRD. Unless the user explicitly skips scrum: current Spec→backlog sprint plan is **approved** and `{workspace}/TODO.md` is seeded (SDD **Scrum mapping** / scrum **Initialize**) — do **not** start this stage while those boards are missing.
 
 **Gate artifact:** `{workspace}/spec/PRD.md`
 
@@ -10,10 +10,11 @@
 
 ## Procedure
 
-1. **Identify Goal:** Artifact type, target audience, and core function.
-2. **Create Project Folder:** Ensure `{workspace}` and `{workspace}/spec/` exist (confirm location/name with user before creating).
-3. **Document PRD:** Write or update **`{workspace}/spec/PRD.md`** using the template below.
-4. **Obtain PRD Approval:** Present the PRD and get **explicit user approval** before advancing.
+1. **Confirm board:** If scrum is active and `TODO.md` / current `sprint-NN.md` are missing → stop; run scrum Initialize / Plan + **Sprint plan approval** first (sprint-00 Scope = initial product backlog).
+2. **Identify Goal:** Artifact type, target audience, and core function.
+3. **Create Project Folder:** Ensure `{workspace}` and `{workspace}/spec/` exist (confirm location/name with user before creating).
+4. **Document PRD:** Write or update **`{workspace}/spec/PRD.md`** using the template below. Sync the matching `T-*` on `TODO.md`.
+5. **Obtain PRD Approval:** Present the PRD and wait for user go-ahead. On go-ahead in the same turn: record approval **and** start `02-ac-identification.md` (do not stop after approval alone).
 
 ---
 

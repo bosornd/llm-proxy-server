@@ -4,7 +4,7 @@
 
 **Gate artifact:** `{workspace}/spec-review/{requirement-slug}.md` recording that the user **approved the Spec as SSOT**.
 
-**Next stage:** After Spec approval — finish sprint-00 backlog definition if needed, then Sprint Boundary; implementation is `07-implementation.md` in sprint-01+ (see SDD **Scrum mapping**). Do not start ⑦ while sprint-00 is current unless the user explicitly skipped scrum.
+**Next stage:** After Spec approval — finish Spec→backlog Scope (encode / append product `PB-*` — initial backlog on sprint-00, or delta backlog change on a later Spec→backlog sprint), then Sprint Boundary; implementation is `07-implementation.md` in the following Backlog→Implementation sprint (see SDD **Scrum mapping**). Do not start ⑦ while a Spec→backlog sprint is current unless the user explicitly skipped scrum.
 
 ---
 
@@ -111,11 +111,11 @@ Save to **`{workspace}/spec-review/{requirement-slug}.md`**. If the file exists,
 
 ### 7. Present & Route
 
-Summarize findings. **Wait for explicit user approval of the Spec as SSOT** before any implementation planning or ⑦.
+Summarize findings. **Wait for user go-ahead on the Spec as SSOT** before any implementation planning or ⑦. On go-ahead **in the same turn**: record approval **and** continue the authorized next step (do not stop after approval alone).
 
 | Outcome | Action |
 |---------|--------|
-| All checks pass; user approves Spec | Record approval under **User Review**; then sprint-00 backlog / Boundary per SDD **Scrum mapping**, then **⑦** |
+| All checks pass; user go-ahead on Spec | Record approval under **User Review** **and in the same turn** continue sprint-00 backlog / Boundary per SDD **Scrum mapping**, then **⑦** when that sprint allows |
 | Spec gaps (wording, missing bullets, ADR not deep-copied) | Re-enter **⑤**; re-run **⑥** after update |
 | Missing or wrong ASRs | **④** → **⑤** → **⑥** |
 | Missing design decisions | Register or reopen AC → **③** (load **adr** when required) → **④ → ⑤ → ⑥** |

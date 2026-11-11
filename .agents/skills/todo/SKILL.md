@@ -47,7 +47,7 @@ Flow: backlog → light Scope (after **Sprint plan approval**) → seed `TODO.md
 Sprint plan approval → Execute → Sprint completion → Sprint Boundary
 ```
 
-Both gates need an **explicit** approve/confirm for the named gate. Continuing the chat, “looks fine,” or picking the next task is **not** approval. Task-level companion gates (draft → gate `[x]`) still apply inside Execute; they do not replace these sprint gates.
+Both gates need **go-ahead** for the named gate (accept the recommended plan/outcome and authorize the next step). Natural language is enough — e.g. ok, continue, next, 계속해줘, 승인할게 — do **not** require the literal words “approve”. Silence, unrelated chat, or picking the next task without proceed intent is **not** approval. On go-ahead: record the gate **and** run the authorized next action in the **same turn** (seed Execute / Boundary / companion draft) — do not stop after approval alone. Task-level companion gates (draft → gate `[x]`) still apply inside Execute; they do not replace these sprint gates.
 
 | Gate | When | Present | Until approved, do **not** |
 |------|------|---------|----------------------------|
@@ -76,7 +76,8 @@ The **boundary task** is the last open task on every seeded/rewritten live board
 
 | Situation | Action |
 |-----------|--------|
-| New deliverable | **Initialize** → plan approval → seed board → **Execute** |
+| New deliverable (no `TODO.md`) | **Initialize** → plan approval → seed board → **Execute** (companion stages only after seed) |
+| Feature add / large Spec change | **Plan** next Spec→backlog sprint (Scope = backlog change) → plan approval → seed → **Execute** |
 | Resume / mid-session | **Orient** |
 | Draft done or gate approved | **Execute** → **Sync** → if Recommended next is a **draft**, continue the companion stage in the same turn |
 | "where are we?" / "what's next?" | **Report** from `TODO.md` (+ backlog if product-wide) |
@@ -86,26 +87,30 @@ The **boundary task** is the last open task on every seeded/rewritten live board
 
 ### Initialize
 
-1. Resolve `{workspace}` and companion workflow.
-2. Create `scrum/` + backlog (small verifiable units) + first `sprint-NN.md` (light Scope) → set **Sprint:** on scoped PB items only.
-3. Present for **Sprint plan approval**. **Stop** until explicit approval.
-4. After approval → seed `TODO.md` from Scope (trailing boundary task; empty Completed sprints) → Current focus = first open task → **Report** / **Execute**.
+Use when `{workspace}/TODO.md` is missing (new deliverable). Companion skills (e.g. sdd) must **not** start stage work until this completes through plan approval + seed.
+
+1. Resolve `{workspace}` and companion workflow (sdd → Spec→backlog first).
+2. Create `scrum/` + `product-backlog.md` + first `sprint-00.md` (light Scope) → set **Sprint:** on scoped PB items only.
+   - **Spec→backlog (first setup):** product `PB-*` do not exist yet. Scope = **create the initial product backlog** (run Spec pipeline ①–⑥, then encode approved Spec as `PB-*`). Seed backlog with that bootstrap story (or a small set covering pipeline → backlog encode) — not with guessed product features.
+   - **Spec→backlog (later / continuation):** do **not** re-Initialize as sprint-00; use **Plan** with continuous `sprint-NN` and Scope = **product-backlog change** for the delta (see sdd **Scrum mapping**).
+3. Present Goal / Scope / DoD / Demo for **Sprint plan approval**. **Stop** until go-ahead — do not draft PRD/AC/ADR/Spec as the session’s primary work while waiting. On go-ahead **in the same turn**: record approval, seed `TODO.md`, and begin **Execute**.
+4. After approval → seed `TODO.md` from Scope + companion stages (trailing boundary task; empty Completed sprints) → Current focus = first open task → **Report** / **Execute**.
 
 ### Orient
 
-1. Read `TODO.md` (missing → Initialize).
+1. Read `TODO.md` (missing → Initialize; do not resume companion stages without a board).
 2. Optionally skim current `sprint-NN.md` Goal/DoD; read backlog when product-wide status matters.
 3. Drift vs disk → **Sync**.
 4. **Report**.
 
 ### Execute
 
-**Prerequisite:** Live board exists (seeded only after **Sprint plan approval**). Do not invent or activate a sprint board to “keep going.”
+**Prerequisite:** Live board exists (seeded only after **Sprint plan approval**). Do not invent or activate a sprint board to “keep going.” Do not run companion pipeline stages (PRD → …) off-board.
 
 1. Exactly one Current focus. **Recommended next** = Depends satisfied + gate over draft + ID order within phase; keep Current focus if still open and unblocked.
 2. Draft done → `[x]`; move to gate or next.
-3. Gate → `[x]` only with explicit user approval (batch: flip matching headlines in place).
-4. After a gate `[x]`: if Recommended next is a companion **draft**, continue that stage and produce the next gate artifact in the same turn (unless the user asked to pause).
+3. Gate → `[x]` only with user go-ahead (batch: flip matching headlines in place).
+4. After a gate `[x]` **in the same turn**: continue the authorized next step (companion **draft**, Sync, or Boundary when go-ahead covers it) and produce the next gate/draft artifact unless the user asked to pause. Approval-only replies with no next-step work are incomplete.
 5. Refresh Snapshot → **Sync**.
 6. If Current focus / Recommended next is the boundary task → **Sprint completion** (do not jump to Boundary).
 
@@ -121,9 +126,12 @@ Research may run in parallel while a gate waits **only if** the user asks (or th
 
 ### Plan / Plan Next
 
-**Plan:** Companion artifacts → backlog in small units → draft/revise `sprint-NN.md` (light Scope) → set PB **Sprint:** → present for **Sprint plan approval**. **Stop.** After approval, seed/switch live `TODO.md` when that sprint is active (trailing boundary task) → **Execute**.
+**Plan:** Draft/revise `sprint-NN.md` (light Scope) → set PB **Sprint:** → present for **Sprint plan approval**. **Stop.** After approval, seed/switch live `TODO.md` when that sprint is active (trailing boundary task) → **Execute**.
 
-**Plan Next:** If next `sprint-NN.md` is missing (or user pre-plans): pick open/carried Stories → create the plan → present for **Sprint plan approval** (now or defer until Boundary — silence ≠ approval). Do not rewrite live `TODO.md` until that sprint starts **and** the plan is approved.
+- **Spec→backlog:** Scope is backlog creation (sprint-00) or backlog change for added/revised requirements (later NN) — see sdd **Scrum mapping**. Tasks cover companion stages ①–⑥ + `PB-*` encode/append; no product ⑦.
+- **Backlog→Implementation:** Scope is a **subset** of open product `PB-*` after a Spec→backlog Boundary. Companion artifacts already exist; do not re-open Spec redesign as main Scope.
+
+**Plan Next:** If next `sprint-NN.md` is missing (or user pre-plans): pick open/carried Stories (or draft the next Spec→backlog Scope when requirements change) → create the plan → present for **Sprint plan approval** (now or defer until Boundary — silence ≠ approval). Do not rewrite live `TODO.md` until that sprint starts **and** the plan is approved.
 
 ### Sprint completion
 
@@ -131,7 +139,7 @@ Research may run in parallel while a gate waits **only if** the user asks (or th
 
 1. Present completion review: Goal outcome, each Scope `PB-*` (met DoD / carry-over / skip), Demo evidence, any incomplete open `T-*`.
 2. Propose backlog actions — do not apply them yet.
-3. **Stop** for explicit execution approval. Do not run Boundary in the same turn unless the user already approved in that message.
+3. **Stop** for execution go-ahead. Do not run Boundary in the same turn unless the user already gave go-ahead in that message.
 4. Do not invent filler `T-*` or auto-`[x]` remaining work. Incomplete scope → carry-over or explicit skip only with user intent.
 5. After approval → **Sprint Boundary**.
 

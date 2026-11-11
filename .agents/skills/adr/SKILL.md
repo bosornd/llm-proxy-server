@@ -83,11 +83,11 @@ Write with the template below. Set `Status: proposed`, add a dated **Notes** ent
 
 ### 5. User Review Gate
 
-Guide the user through options with structured questions. **Never** set `approved` without explicit user confirmation. If the user says "just pick one" on a qualifying concern, still present alternatives and tradeoffs; only non-qualifying concerns may be resolved by default.
+Guide the user through options with structured questions. **Never** set `approved` without user go-ahead (accept the recommended option / authorize recording). Natural language (ok, go ahead, 계속해줘, …) is enough — do **not** require the literal words “approve”. If the user says "just pick one" on a qualifying concern, still present alternatives and tradeoffs; only non-qualifying concerns may be resolved by default.
 
 ### 6. Record Approval & Triage Downstream
 
-On explicit approval:
+On go-ahead (**same turn** — do not stop after status flip alone):
 
 1. `Status: approved`
 2. **Decision** = chosen option + one-line rationale
@@ -96,10 +96,11 @@ On explicit approval:
    - `directly resolved` / `covered` / `out of scope` / `deferred assumption` — with default, basis, or revisit trigger
 4. Update **Related** (parent / sibling / follow-up paths)
 5. Append a dated **Notes** entry
+6. Return to the calling workflow’s next step (e.g. AC Resolution / next unsettled AC) in this same turn unless the user paused.
 
 ### 7. Optionally Chain One Follow-Up
 
-If an `ADR candidate` remains, ask whether to open **one** ADR for the highest-impact item. If none remain, close the chain and state why.
+If an `ADR candidate` remains, ask whether to open **one** ADR for the highest-impact item. If none remain, close the chain and continue the caller’s next step in the same turn.
 
 ---
 
